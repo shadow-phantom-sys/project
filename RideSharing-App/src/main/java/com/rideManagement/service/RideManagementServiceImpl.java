@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rideManagement.DAL.RideRepository;
 import com.rideManagement.model.RideManagement;
-import com.rideManagement.repository.RideManagementRepository;
 
 @Service
-public class RideManagementServiceImpl implements RideManagementService {
+public class RideManagementServiceImpl implements RideService {
 
 	@Autowired
-	private RideManagementRepository ridemanagementRepo;
+	private RideRepository ridemanagementRepo;
 	
 	@Override
 	public List<RideManagement> getAllRidemanagement(){
