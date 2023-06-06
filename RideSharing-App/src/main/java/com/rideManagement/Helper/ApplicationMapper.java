@@ -22,7 +22,7 @@ public class ApplicationMapper extends ModelMapper {
 		this.addMappings(new PropertyMap<Booking, BookingDTO>() {
 			@Override
 			protected void configure() {
-				map().setRideSchedulesID(source.getRideSchedule().getId());
+				map().setRideSchedulesID(source.getRideScheduleId().getId());
 				// Add mappings for other properties as needed
 			}
 		});

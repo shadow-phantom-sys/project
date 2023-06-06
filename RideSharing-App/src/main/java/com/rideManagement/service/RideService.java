@@ -1,25 +1,28 @@
 package com.rideManagement.service;
-import AutoMapper;
-import RideSharingPlatform.Context.RideDbContext;
+import java.util.Collection;
+import java.util.List;
 
+import org.modelmapper.ModelMapper;
+
+import com.context.RideDbContext;
 import com.rideManagement.DAL.RideRepository;
 import com.rideManagement.DAL.Interfaces.IRideRepository;
 import com.rideManagement.model.Booking;
 import com.rideManagement.model.Distance;
 import com.rideManagement.model.RideSchedules;
-import com.rideManagement.model.DTOs.*;
-import RideSharingPlatform.Microservices.RideManagement.DAL.Interfaces.*;
-import RideSharingPlatform.Microservices.RideManagement.Models.*;
-import RideSharingPlatform.Microservices.RideManagement.Models.DTOs.*;
-import java.util.List;
-import java.util.ArrayList;
+import com.rideManagement.model.DTOs.BookingDTO;
+import com.rideManagement.model.DTOs.FareDTO;
+import com.rideManagement.model.DTOs.RideDTO;
+import com.rideManagement.model.DTOs.SearchDTO;
+
+import jakarta.persistence.EntityManager;
 
 public class RideService {
-    private final RideDbContext context;
+    private final EntityManager context;
     private final IRideRepository repository;
-    private final IMapper mapper;
+    private final ModelMapper mapper;
 
-    public RideService(RideDbContext context, IMapper mapper) {
+    public RideService(EntityManager context, ModelMapper mapper) {
         this.context = context;
         this.repository = new RideRepository(context);
         this.mapper = mapper;
@@ -27,10 +30,12 @@ public class RideService {
 
     public List<Distance> getDistances() {
         return repository.getDistances();
+        
     }
 
+    
     public boolean scheduleRide(RideDTO ride) {
-        Distance d = context.getDistances().stream()
+        Distance d = ((Collection<Distance>) getDistances()).stream()
                 .filter(v -> v.getFrom().equals(ride.getRideFrom()) && v.getTo().equals(ride.getRideTo()))
                 .findFirst()
                 .orElse(null);
@@ -42,7 +47,7 @@ public class RideService {
         int r = repository.addRide(rideSchedule);
         return r > 0;
     }
-
+//
     public List<RideSchedules> searchRide(SearchDTO ride) {
         return repository.search(ride);
     }

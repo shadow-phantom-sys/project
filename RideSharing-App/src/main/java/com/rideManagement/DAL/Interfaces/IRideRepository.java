@@ -16,7 +16,7 @@ public interface IRideRepository {
     int getFare(String regNo);
     int addRide(RideSchedules rideSchedule);
     int getMotoristId(String regNo);
-    Iterable<RideSchedules> search(SearchDTO searchDTO);
+    List<RideSchedules> search(SearchDTO searchDTO);
     int bookRide(Booking booking);
     int getRideFare(FareDTO fareDTO);
     String getRegNo(int userId);

@@ -1,5 +1,9 @@
 package com.rideManagement.controller;
+import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,19 +20,35 @@ import com.rideManagement.model.DTOs.RideDTO;
 import com.rideManagement.model.DTOs.SearchDTO;
 import com.rideManagement.service.RideService;
 
+import ch.qos.logback.core.Context;
+import jakarta.persistence.EntityManager;
+@Configuration
 @RestController
 @RequestMapping("api/")
 public class RideController {
 
-    private final RideDbContext context;
+    private final EntityManager context;
     private final RideService service;			
 
+//    @Autowired
+//    public RideController(Context context, ModelMapper mapper) {
+//        this.context = this.context;
+//        this.service = new RideService(context, mapper);
+//    }
+
+
+//    private final RideDbContext context;
+//    private final RideService service;
+    
+    private final ModelMapper modelMapper;  // Add ModelMapper
     @Autowired
-    public RideController(RideDbContext context, JMapper mapper) {
+    public RideController(EntityManager context, ModelMapper modelMapper) {
         this.context = context;
-        this.service = new RideService(context, mapper);
+        this.modelMapper = modelMapper;
+        this.service = new RideService(context, modelMapper);  // Pass modelMapper to RideService
     }
 
+    
     @GetMapping("distances")
     public ResponseEntity<Object> getDistances() {
         Object r = service.getDistances();

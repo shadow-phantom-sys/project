@@ -38,7 +38,7 @@ public class Booking {
     private String paymentMode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RideSchedulesID")
+    @JoinColumn(name = "RideScheduleID")
     private RideSchedules rideSchedule;
 
     public int getBookingID() {
@@ -89,11 +89,11 @@ public class Booking {
         this.paymentMode = paymentMode;
     }
 
-    public RideSchedules getRideSchedule() {
+    public RideSchedules getRideScheduleId() {
         return rideSchedule;
     }
 
-    public void setRideSchedule(RideSchedules rideSchedule) {
+    public void setRideScheduleId(RideSchedules rideSchedule) {
         this.rideSchedule = rideSchedule;
     }
 }
