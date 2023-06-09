@@ -30,6 +30,11 @@ public class SearchDTO {
 		this.minPrice = minPrice;
 	}
 
+	@Override
+	public String toString() {
+		return "SearchDTO [from=" + from + ", to=" + to + ", minPrice=" + minPrice + ", maxPrice=" + maxPrice + "]";
+	}
+
 	public Integer getMaxPrice() {
 		return maxPrice;
 	}

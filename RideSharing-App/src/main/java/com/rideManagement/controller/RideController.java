@@ -65,6 +65,7 @@ public class RideController {
     public ResponseEntity<Object> scheduleRide(@RequestBody RideDTO rideDTO) {
         Object r = service.scheduleRide(rideDTO);
         return ResponseEntity.ok(r);
+        
     }
 
     @GetMapping("rides/search")
@@ -72,6 +73,7 @@ public class RideController {
         Object r = service.searchRide(searchDTO);
         return ResponseEntity.ok(r);
     }
+   
 
     @PostMapping("rides/book")
     public ResponseEntity<Object> bookRide(@RequestBody BookingDTO bookingDTO) {

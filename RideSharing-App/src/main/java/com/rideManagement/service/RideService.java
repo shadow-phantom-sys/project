@@ -18,17 +18,17 @@ import com.rideManagement.model.DTOs.SearchDTO;
 import jakarta.persistence.EntityManager;
 
 public class RideService {
-    private final EntityManager context;
-    private final IRideRepository repository;
+    private final EntityManager context;// An instance of EntityManager representing the context or connection to the persistence layer.
+    private final IRideRepository repository;// an instance of iriderepository.
     private final ModelMapper mapper;
 
-    public RideService(EntityManager context, ModelMapper mapper) {
+    public RideService(EntityManager context, ModelMapper mapper) {// constructor accepts entitymanager and modelmapper objects as parameters
         this.context = context;
         this.repository = new RideRepository(context);
         this.mapper = mapper;
     }
 
-    public List<Distance> getDistances() {
+    public List<Distance> getDistances() {//retrieves a list of Distance objects from method getDistance().
         return repository.getDistances();
         
     }
@@ -36,13 +36,13 @@ public class RideService {
     
     public boolean scheduleRide(RideDTO ride) {
         Distance d = ((Collection<Distance>) getDistances()).stream()
-                .filter(v -> v.getFrom().equals(ride.getRideFrom()) && v.getTo().equals(ride.getRideTo()))
+                .filter(v -> v.getFrom().equals(ride.getRideFrom()) && v.getTo().equals(ride.getRideTo()))//returns Distance object that matches with RideRTO
                 .findFirst()
                 .orElse(null);
-
+        
         RideSchedules rideSchedule = mapper.map(ride, RideSchedules.class);
-        rideSchedule.setRideFare(repository.getFare(ride.getVehicleRegistrationNo()) * d.getDistanceInKMS());
-        rideSchedule.setMotoristUserId(repository.getMotoristId(ride.getVehicleRegistrationNo()));
+        rideSchedule.setRideFare(repository.getFare(ride.getVehicleRegistrationNo()) * d.getDistanceInKMS());//sets the fare by calling fare from vehicleregno multiplied with distinkms
+        rideSchedule.setMotoristUserId(repository.getMotoristId(ride.getVehicleRegistrationNo()));// sets motoristuserid
 
         int r = repository.addRide(rideSchedule);
         return r > 0;

@@ -181,7 +181,8 @@ public class RideRepository implements IRideRepository {
 
     public int getRideFare(FareDTO fareDTO) {
         Distance distance = entityManager.find(Distance.class, fareDTO.getDistanceID());
-        int farePerKM = getFare(fareDTO.getVehicleRegistrationNo());
+//        int farePerKM = getFare(fareDTO.getVehicleRegistrationNo());
+        int farePerKM=1000;
         int fare = farePerKM * distance.getDistanceInKMS();
         return fare;
     }
@@ -202,7 +203,7 @@ public class RideRepository implements IRideRepository {
 
     public List<RideSchedules> search(SearchDTO searchDTO) {
         StringBuilder queryBuilder = new StringBuilder("SELECT r FROM RideSchedule r WHERE 1=1");
-
+//        System.out.println(searchDTO);
         if (searchDTO.getFrom() != null) {
             queryBuilder.append(" AND r.rideFrom = :from");
         }
@@ -245,10 +246,16 @@ public class RideRepository implements IRideRepository {
         return booking.getBookingID();
     }
 
-    public String getRegNo(int userId) {
-        Query query = entityManager.createQuery("SELECT v.registrationNo FROM Vehicle v WHERE v.belongsToUserId = :userId");
-        query.setParameter("userId", userId);
-        String regNo = (String) query.getSingleResult();
-        return regNo != null ? regNo : "";
-    }
+	@Override
+	public String getRegNo(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+////    public String getRegNo(int userId) {
+////        Query query = entityManager.createQuery("SELECT v.registrationNo FROM Vehicle v WHERE v.belongsToUserId = :userId");
+////        query.setParameter("userId", userId);
+////        String regNo = (String) query.getSingleResult();
+////        return regNo != null ? regNo : "";
+////    }
 }
