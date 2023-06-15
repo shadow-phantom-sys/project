@@ -7,7 +7,7 @@ public class RideDTO {
     private String rideTo;
     private LocalDate rideStartsOn;
     private String rideTime;
-    //private int rideFare;
+    private int rideFare;
     private String vehicleRegistrationNo;
     private int motoristUserId;
     private int noOfSeatsAvailable;
@@ -44,13 +44,13 @@ public class RideDTO {
         this.rideTime = rideTime;
     }
 
-    /*public int getRideFare() {
+    public int getRideFare() {
         return rideFare;
     }
 
     public void setRideFare(int rideFare) {
         this.rideFare = rideFare;
-    }*/
+    }
 
     public String getVehicleRegistrationNo() {
         return vehicleRegistrationNo;

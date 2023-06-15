@@ -22,7 +22,7 @@ public class Vehicle {
 	private int belongstouserid;
 	
 	@Column(name="VehicleTypeId")
-	private String vehicletypeid;
+	private int vehicletypeid;
 	
 	@Column(name="InspectionStatus")
 	private String inspectionstatus;
@@ -30,8 +30,19 @@ public class Vehicle {
 	@Column(name="InspectionByUserId")
 	private int inspectionbyuserid;
 	
-	@Column(name="InspectedByUserId")
+	@Column(name="InspectedOn")
 	private Date inspectedon;
+	
+	@Column(name="FarePerKm")
+	private int farePerKm;
+
+	public int getFarePerKm() {
+		return farePerKm;
+	}
+
+	public void setFarePerKm(int farePerKm) {
+		this.farePerKm = farePerKm;
+	}
 
 	public String getRegistrationNo() {
 		return registrationNo;
@@ -49,11 +60,11 @@ public class Vehicle {
 		this.belongstouserid = belongstouserid;
 	}
 
-	public String getVehicletypeid() {
+	public int getVehicletypeid() {
 		return vehicletypeid;
 	}
 
-	public void setVehicletypeid(String vehicletypeid) {
+	public void setVehicletypeid(int vehicletypeid) {
 		this.vehicletypeid = vehicletypeid;
 	}
 

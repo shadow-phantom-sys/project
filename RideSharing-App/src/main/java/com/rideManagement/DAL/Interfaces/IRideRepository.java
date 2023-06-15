@@ -1,15 +1,13 @@
 package com.rideManagement.DAL.Interfaces;
 
 
-import com.rideManagement.model.DTOs.SearchDTO;
-import com.rideManagement.model.DTOs.SearchDTO;
-import com.rideManagement.model.DTOs.SearchDTO;
-import com.rideManagement.model.DTOs.SearchDTO;
-import com.rideManagement.model.DTOs.SearchDTO;
-import com.rideManagement.model.*;
-import com.rideManagement.model.DTOs.*;
 import java.util.List;
-import java.util.ArrayList;
+
+import com.rideManagement.model.Booking;
+import com.rideManagement.model.Distance;
+import com.rideManagement.model.RideSchedules;
+import com.rideManagement.model.DTOs.FareDTO;
+import com.rideManagement.model.DTOs.SearchDTO;
 
 public interface IRideRepository {
     List<Distance> getDistances();
