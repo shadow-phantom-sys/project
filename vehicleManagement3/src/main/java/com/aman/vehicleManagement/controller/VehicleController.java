@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.aman.vehicleManagement.entity.Vehicle;
 import com.aman.vehicleManagement.entity.dto.RegisterVehicleDto;
+import com.aman.vehicleManagement.entity.dto.UpdateVehicleRegistrationDTO;
 import com.aman.vehicleManagement.entity.dto.VehicleDto;
 import com.aman.vehicleManagement.entity.dto.VehicleTypeDto;
 import com.aman.vehicleManagement.service.VehicleService;
@@ -30,6 +31,7 @@ import com.aman.vehicleManagement.service.exceptions.UserNotFoundException;
 @RequestMapping("/api/vehicles")
 public class VehicleController {
 	
+	
 	@Autowired
 	private VehicleTypesService vehicleTypesService;
 	
@@ -43,11 +45,11 @@ public class VehicleController {
 	private VehicleService vehicleService;
 	
 	@PostMapping("/addvehicle")
-	public ResponseEntity<String> addVehicle(@RequestBody RegisterVehicleDto registerVehicleDto) {
+	public ResponseEntity<?> addVehicle(@RequestBody RegisterVehicleDto registerVehicleDto) {
 		try {
             Vehicle vehicle = vehicleService.addVehicle(registerVehicleDto);
             
-            return ResponseEntity.ok("Vehicle registered successfully.");
+            return ResponseEntity.ok(200);
         } catch (InvalidVehicleException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         } catch (InvalidRegistrationNumberException ex) {
@@ -72,11 +74,11 @@ public class VehicleController {
 	}
 	
 	@DeleteMapping("/{registrationNo}")
-	public ResponseEntity<String> deleteVehicleDetailsByRegistrationNo(@PathVariable(name="registrationNo") String regNo) {
+	public ResponseEntity<?> deleteVehicleDetailsByRegistrationNo(@PathVariable(name="registrationNo") String regNo) {
 //		vehicleService.deleteVehicleDetailByResigtrationNo(regNo);
 		try {
 	        vehicleService.deleteVehicleDetailByResigtrationNo(regNo);
-	        return ResponseEntity.ok("Vehicle details deleted successfully.");
+	        return ResponseEntity.ok(200);
 	    } catch (NotFoundExcep ex) {
 	    	return ResponseEntity.badRequest().body(ex.getMessage());
 	    } catch (Exception ex) {
@@ -85,11 +87,23 @@ public class VehicleController {
 		
 	}
 
-	@GetMapping("/pendingapprovals/{pageno}")
-	public List<VehicleDto> getPendingVehicles(@PathVariable(name="pageno") Integer pageNo){
-		return vehicleService.getAllPendingVehicles(pageNo);
+//	@GetMapping("/pendingapprovals/{pageno}")
+//	public List<VehicleDto> getPendingVehicles(@PathVariable(name="pageno") Integer pageNo){
+//		return vehicleService.getAllPendingVehicles(pageNo);
+//	}
+	@GetMapping("/pendingapprovals")
+	public ResponseEntity<?> getPendingVehicles(){
+		var r = vehicleService.getAllPendingVehicles();
+        return ResponseEntity.ok(r);
 	}
-	
+	@PutMapping("/approveorreject")
+	public ResponseEntity<?> updateVehicleStatus(@RequestBody UpdateVehicleRegistrationDTO updateVehicleRegistrationDTO) {
+        boolean result = vehicleService.updateVehicleStatus(updateVehicleRegistrationDTO);
+        if (result) {
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 //	@PutMapping("/approveorreject")
 //    public String updateApplication(@RequestBody UpdateVehicleRegistrationDTO updateVehicleRegistrationDTO) {
 //        boolean result = VehicleService.updateVehicle(updateVehicleRegistrationDTO);

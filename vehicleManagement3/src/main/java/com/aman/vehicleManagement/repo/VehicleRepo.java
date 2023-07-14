@@ -14,14 +14,21 @@ public interface VehicleRepo extends JpaRepository<Vehicle,String>{
 
 	List<Vehicle> findAllByBelongsToUserId(int userId);
 	
+//	@Query("SELECT v FROM Vehicle v " +
+//            "WHERE v.inspectionStatus = 'Pending'")
+//	List<Vehicle> findPendingApprovals(Pageable pageable);
+	
 	@Query("SELECT v FROM Vehicle v " +
             "WHERE v.inspectionStatus = 'Pending'")
-	List<Vehicle> findPendingApprovals(Pageable pageable);
+	List<Vehicle> findPendingApprovals();
 	
 	Vehicle findByBelongsToUserId(int userId);
 	
 	@Query("SELECT v FROM Vehicle v WHERE v.belongsToUserId = :userId")
 	Vehicle getPendingVehicleByUserId(int userId);
+	
+	@Query("SELECT v FROM Vehicle v WHERE v.registrationNo = :registrationNo")
+	Vehicle getByResgistrationNo(String registrationNo);
 	
 	
 }

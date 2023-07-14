@@ -10,6 +10,10 @@ public class VehicleTypeDto {
 	
 	private int maxPassengersAllowed;
 
+	public VehicleTypeDto(int i, String string, int j, int k) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
